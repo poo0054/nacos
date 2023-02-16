@@ -597,6 +597,7 @@
         <module>plugin</module>
         <module>plugin-default-impl</module>
         <module>prometheus</module>
+        <module>testclient</module>
     </modules>
     
     <!-- Default dependencies in all subprojects -->
@@ -750,14 +751,19 @@
                 <artifactId>nacos-sys</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>testclient</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <!-- HikariCP -->
             <dependency>
                 <groupId>com.zaxxer</groupId>
