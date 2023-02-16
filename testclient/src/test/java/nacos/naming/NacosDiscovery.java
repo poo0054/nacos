@@ -1,8 +1,10 @@
-package com.poo0054.nacos.cro;
+package nacos.naming;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
+
+import org.junit.Test;
 
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
@@ -14,7 +16,8 @@ import com.alibaba.nacos.api.naming.pojo.Instance;
  * @date 2023/2/16
  */
 public class NacosDiscovery {
-    public static void main(String[] args) throws NacosException, IOException {
+    @Test
+    public void test() throws NacosException, IOException {
         Properties properties = new Properties();
         properties.setProperty("serverAddr", "192.168.56.1:8848");
         properties.setProperty("namespace", "public");
