@@ -9,6 +9,9 @@ import org.junit.Test;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
+import com.alibaba.nacos.api.naming.listener.Event;
+import com.alibaba.nacos.api.naming.listener.EventListener;
+import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 
 /**
@@ -32,6 +35,20 @@ public class NacosDiscovery {
         instance1.setPort(9999);
         instance1.setWeight(1);
         naming.batchRegisterInstance("nacos.test", "test", Arrays.asList(instance1, instance));
+
+        naming.subscribe("nacos.test.1", new EventListener() {
+            @Override
+            public void onEvent(Event event) {
+                if (event instanceof NamingEvent) {
+                    System.out.println(((NamingEvent)event).getServiceName());
+                    System.out.println(((NamingEvent)event).getGroupName());
+                    System.out.println(((NamingEvent)event).getInstances());
+                }
+            }
+        });
+
+        naming.registerInstance("nacos.test.1", "test", "13.22.22.22", 8882);
+
         System.in.read();
         /* Instance instance = new Instance();
         instance.setIp("55.55.55.55");
