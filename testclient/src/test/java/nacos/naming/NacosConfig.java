@@ -1,15 +1,14 @@
 package nacos.naming;
 
-import java.io.IOException;
-import java.util.Properties;
-import java.util.concurrent.Executor;
-
-import org.junit.Test;
-
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.Properties;
+import java.util.concurrent.Executor;
 
 /**
  * @author zhangzhi
@@ -27,6 +26,7 @@ public class NacosConfig {
         String content = configService.getConfig(dataId, group, 5000);
         System.out.println(content);
 
+        //监听指定nacis的配置
         configService.addListener(dataId, group, new Listener() {
             @Override
             public Executor getExecutor() {

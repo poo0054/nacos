@@ -1,18 +1,15 @@
 package nacos.naming;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Properties;
-
-import org.junit.Test;
-
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
-import com.alibaba.nacos.api.naming.listener.Event;
-import com.alibaba.nacos.api.naming.listener.EventListener;
 import com.alibaba.nacos.api.naming.listener.NamingEvent;
 import com.alibaba.nacos.api.naming.pojo.Instance;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * @author zhangzhi
@@ -36,14 +33,12 @@ public class NacosDiscovery {
         instance1.setWeight(1);
         naming.batchRegisterInstance("nacos.test", "test", Arrays.asList(instance1, instance));
 
-        naming.subscribe("nacos.test.1", new EventListener() {
-            @Override
-            public void onEvent(Event event) {
-                if (event instanceof NamingEvent) {
-                    System.out.println(((NamingEvent)event).getServiceName());
-                    System.out.println(((NamingEvent)event).getGroupName());
-                    System.out.println(((NamingEvent)event).getInstances());
-                }
+        //监听指定的nacos服务
+        naming.subscribe("nacos.test.1", event -> {
+            if (event instanceof NamingEvent) {
+                System.out.println(((NamingEvent) event).getServiceName());
+                System.out.println(((NamingEvent) event).getGroupName());
+                System.out.println(((NamingEvent) event).getInstances());
             }
         });
 
